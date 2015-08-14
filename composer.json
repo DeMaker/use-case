@@ -1,0 +1,23 @@
+{
+    "name": "fojuth/stamp",
+    "description": "Cascade class generation.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kamil Fojuth",
+            "email": "fojuth@gmail.com"
+        }
+    ],
+    "require": {
+        "memio/memio": "~1.0",
+        "ulrichsg/getopt-php": "2.3.*"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "2.2.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fojuth\\Stamp\\": "src/"
+        }
+    }
+}
