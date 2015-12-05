@@ -2,7 +2,7 @@
 
 namespace Fojuth\Stamp;
 
-class Definition
+class Declaration
 {
 
     /**

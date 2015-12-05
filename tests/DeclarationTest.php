@@ -1,8 +1,8 @@
 <?php
 
-use Fojuth\Stamp\Definition;
+use Fojuth\Stamp\Declaration;
 
-class DefinitionTest extends PHPUnit_Framework_TestCase
+class DeclarationTest extends PHPUnit_Framework_TestCase
 {
 
     /**
@@ -10,7 +10,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
      */
     public function it_has_proper_setters_and_getters()
     {
-        $def = new Definition($alias = 'foo', $fqn = 'Foo\Bar');
+        $def = new Declaration($alias = 'foo', $fqn = 'Foo\Bar');
         $def->setCascade(false);
         $def->setGenerateTests(false);
 
