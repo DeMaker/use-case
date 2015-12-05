@@ -1,10 +1,12 @@
 <?php
 
+namespace tests;
+
 use Fojuth\Stamp\Config\Loader;
 use Fojuth\Stamp\Config\Exception\InvalidConfigException;
 use Fojuth\Stamp\Config\Exception\ConfigIncompleteException;
 
-class LoaderTest extends PHPUnit_Framework_TestCase
+class LoaderTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
