@@ -16,7 +16,7 @@ class Loader
     /**
      * @var string
      */
-    protected $srcDir;
+    protected $sources;
 
     /**
      * @var string
@@ -42,7 +42,7 @@ class Loader
 
     protected function validateBasicKeys(array $config)
     {
-        $basicKeys = ['template-dir', 'source-dir', 'definitions'];
+        $basicKeys = ['template-dir', 'sources', 'definitions'];
 
         foreach ($basicKeys as $key) {
             if (false === array_key_exists($key, $config)) {
@@ -54,7 +54,7 @@ class Loader
     protected function storeConfig(array $config)
     {
         $this->templateDir = $config['template-dir'];
-        $this->srcDir = $config['source-dir'];
+        $this->sources = $config['sources'];
         $this->testsDir = $config['test-dir'];
         $this->definitions = $config['definitions'];
     }
@@ -64,9 +64,9 @@ class Loader
         return $this->templateDir;
     }
 
-    public function getSourceDir()
+    public function getSources()
     {
-        return $this->srcDir;
+        return $this->sources;
     }
 
     public function getTestsDir()

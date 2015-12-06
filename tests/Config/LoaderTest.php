@@ -43,7 +43,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
                 ['template-dir']
             ],
             [
-                ['template-dir', 'source-dir']
+                ['template-dir', 'sources']
             ],
         ];
     }
@@ -55,7 +55,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
     {
         $config = [
             'template-dir' => 'stamp-tpl',
-            'source-dir' => 'src',
+            'sources' => 'src',
             'test-dir' => 'tests',
             'definitions' => [],
         ];
@@ -63,7 +63,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $loader = new Loader(json_encode($config));
 
         $this->assertEquals($config['template-dir'], $loader->getTemplateDir());
-        $this->assertEquals($config['source-dir'], $loader->getSourceDir());
+        $this->assertEquals($config['sources'], $loader->getSources());
         $this->assertEquals($config['test-dir'], $loader->getTestsDir());
         $this->assertEquals($config['definitions'], $loader->getDefinitions());
     }
