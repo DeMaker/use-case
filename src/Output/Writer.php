@@ -16,6 +16,11 @@ class Writer
      */
     protected $config;
 
+    /**
+     * @var string
+     */
+    protected $compiledFilePath;
+
     public function __construct(Loader $config)
     {
         $this->config = $config;
@@ -56,7 +61,17 @@ class Writer
      */
     protected function getFilePath($dir, $className)
     {
-        return $dir . '/' . $className . '.php';
+        $this->compiledFilePath = $dir . '/' . $className . '.php';
+
+        return $this->compiledFilePath;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCompiledFilePath()
+    {
+        return $this->compiledFilePath;
     }
 
     /**

@@ -22,6 +22,12 @@ class Make extends Command
         $alias = $input->getArgument('alias');
         $fqn = $input->getArgument('fqn');
 
-        (new Dispatcher)->run($alias, $fqn);
+        $results = (new Dispatcher)->run($alias, $fqn);
+
+        foreach ($results as $result) {
+            $declaration = $result['declaration'];
+
+            $output->writeln("Generated {$declaration->getAlias()} ({$declaration->getFqn()}) at {$result['path']} ");
+        }
     }
 }

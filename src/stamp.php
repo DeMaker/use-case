@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+require 'vendor/autoload.php';
 
 use Fojuth\Stamp\Command\Make;
 use Symfony\Component\Console\Application;
