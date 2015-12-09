@@ -13,11 +13,6 @@ class Definition
     /**
      * @var string
      */
-    protected $templateFile;
-
-    /**
-     * @var string
-     */
     protected $testTemplateFile;
 
     /**
@@ -28,7 +23,6 @@ class Definition
     public function __construct(array $definitionArray)
     {
         $this->alias = $definitionArray['alias'];
-        $this->templateFile = $definitionArray['template'];
 
         if (true === array_key_exists('cascade', $definitionArray)) {
             $this->cascade = $definitionArray['cascade'];
@@ -45,14 +39,6 @@ class Definition
     public function getAlias()
     {
         return $this->alias;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTemplateFile()
-    {
-        return $this->templateFile;
     }
 
     /**

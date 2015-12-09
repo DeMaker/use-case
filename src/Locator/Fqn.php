@@ -58,10 +58,10 @@ class Fqn
         $ns = join('\\', $this->fqnArray);
 
         if (true === is_array($this->source)) {
-            $this->fqnArray = $this->getDirWithNamespace($ns);
+            $fqnArray = $this->getDirWithNamespace($ns);
         }
 
-        return join('/', $this->fqnArray);
+        return join('/', $fqnArray);
     }
 
     /**
@@ -72,7 +72,7 @@ class Fqn
     public function getDirWithNamespace()
     {
         $nsArray = $this->fqnArray;
-        $ns = join('\\', $this->fqnArray);
+        $ns = join('\\', $nsArray);
 
         foreach ($this->source as $sourceNamespace => $dir) {
             if (strstr($ns, $sourceNamespace)) {

@@ -3,8 +3,7 @@
 namespace Fojuth\Stamp\Template;
 
 use Fojuth\Stamp\Declaration;
-use Memio\Memio\Config\Build;
-use Memio\Model\File;
+use Fojuth\Stamp\Locator\Fqn;
 use Memio\Model\Object;
 use Memio\Model\Property;
 use Memio\Model\Method;
@@ -22,6 +21,16 @@ class Builder
     protected $declaration;
 
     /**
+     * @var
+     */
+    protected $fqn;
+
+    public function __construct(Fqn $fqn)
+    {
+        $this->fqn = $fqn;
+    }
+
+    /**
      * @param Declaration $declaration
      * @return $this
      */
@@ -34,18 +43,15 @@ class Builder
 
     public function make()
     {
-//        $file = File::make('src/Vendor/Project/MyService.php')
-//            ->setStructure(
-                $object = Object::make($this->getClassNamespace())
+        $object = Object::make($this->declaration->getFqn())
 //                    ->addProperty(new Property('createdAt'))
 //                    ->addProperty(new Property('filename'))
-                    ->addMethod(
-                        Method::make('__construct')
-                            ->addArgument(new Argument('DateTime', 'createdAt'))
-                            ->addArgument(new Argument('string', 'filename'))
-                    );
-//            )
-//        ;
+            ->addMethod(
+                Method::make('__construct')
+                    ->addArgument(new Argument('DateTime', 'createdAt'))
+                    ->addArgument(new Argument('string', 'filename'))
+            );
+
         return $object;
     }
 
@@ -59,19 +65,5 @@ class Builder
         $fqnArray = explode('\\', $this->declaration->getFqn());
 
         return array_pop($fqnArray);
-    }
-
-    /**
-     * Returns class' namespace fetched from FQN.
-     *
-     * @return string
-     */
-    protected function getClassNamespace()
-    {
-        $fqnArray = explode('\\', $this->declaration->getFqn());
-
-        array_pop($fqnArray);
-
-        return join('\\', $fqnArray);
     }
 }

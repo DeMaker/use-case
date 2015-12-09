@@ -5,6 +5,7 @@ namespace Fojuth\Stamp;
 use Fojuth\Stamp\Config\Loader;
 use Fojuth\Stamp\Output\Writer;
 use Fojuth\Stamp\Template\Builder;
+use Fojuth\Stamp\Locator\Fqn;
 use Fojuth\Stamp\Template\DefinitionFactory;
 
 /**
@@ -20,20 +21,19 @@ class Dispatcher
 
     public function run($alias, $fqn)
     {
-        $config = $this->getConfig();
-
         $declaration = new Declaration($alias, $fqn);
 
-//        $templateLocator = $this->getTemplateLocator($config, $declaration);
+        $config = $this->getConfig();
+        $fqn = new Fqn($declaration, $config->getSources());
 
-        $builder = $this->getBuilder($declaration);
+        $builder = $this->getBuilder($declaration, $fqn);
 
-        $writer = new Writer($config);
-        $writer->makeClass($declaration, $builder->make());
+        $writer = new Writer($config, $fqn);
+        $writer->makeClass($builder->make());
 
         $this->results[] = [
             'declaration' => $declaration,
-            'path' => $writer->getCompiledFilePath(),
+            'path' => $fqn->getFilePath(),
         ];
 
         return $this->results;
@@ -70,9 +70,9 @@ class Dispatcher
      * @param Declaration $declaration
      * @return Builder
      */
-    protected function getBuilder(Declaration $declaration)
+    protected function getBuilder(Declaration $declaration, Fqn $fqn)
     {
-        $builder = new Builder();
+        $builder = new Builder($fqn);
         $builder->setDeclaration($declaration);
 
         return $builder;
