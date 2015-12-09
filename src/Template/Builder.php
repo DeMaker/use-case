@@ -3,6 +3,12 @@
 namespace Fojuth\Stamp\Template;
 
 use Fojuth\Stamp\Declaration;
+use Memio\Memio\Config\Build;
+use Memio\Model\File;
+use Memio\Model\Object;
+use Memio\Model\Property;
+use Memio\Model\Method;
+use Memio\Model\Argument;
 
 /**
  * Replaces placeholders in a template with proper values.
@@ -11,25 +17,9 @@ class Builder
 {
 
     /**
-     * @var string
-     */
-    protected $template;
-
-    /**
      * @var Declaration
      */
     protected $declaration;
-
-    /**
-     * @param $template
-     * @return $this
-     */
-    public function setTemplateContent($template)
-    {
-        $this->template = $template;
-
-        return $this;
-    }
 
     /**
      * @param Declaration $declaration
@@ -44,13 +34,19 @@ class Builder
 
     public function make()
     {
-        return preg_replace([
-            '/{{NAMESPACE}}/',
-            '/{{CLASSNAME}}/',
-        ], [
-            $this->getClassNamespace(),
-            $this->getClassName(),
-        ], $this->template);
+//        $file = File::make('src/Vendor/Project/MyService.php')
+//            ->setStructure(
+                $object = Object::make($this->getClassNamespace())
+//                    ->addProperty(new Property('createdAt'))
+//                    ->addProperty(new Property('filename'))
+                    ->addMethod(
+                        Method::make('__construct')
+                            ->addArgument(new Argument('DateTime', 'createdAt'))
+                            ->addArgument(new Argument('string', 'filename'))
+                    );
+//            )
+//        ;
+        return $object;
     }
 
     /**

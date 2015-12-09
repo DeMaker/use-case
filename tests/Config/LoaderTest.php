@@ -21,7 +21,6 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         new Loader($content);
     }
 
-
     /**
      * @test
      * @dataProvider require_config_value_provider
@@ -40,10 +39,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
                 []
             ],
             [
-                ['template-dir']
-            ],
-            [
-                ['template-dir', 'sources']
+                ['sources']
             ],
         ];
     }
@@ -54,7 +50,6 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
     public function it_stores_config_values()
     {
         $config = [
-            'template-dir' => 'stamp-tpl',
             'sources' => 'src',
             'test-dir' => 'tests',
             'definitions' => [],
@@ -62,7 +57,6 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 
         $loader = new Loader(json_encode($config));
 
-        $this->assertEquals($config['template-dir'], $loader->getTemplateDir());
         $this->assertEquals($config['sources'], $loader->getSources());
         $this->assertEquals($config['test-dir'], $loader->getTestsDir());
         $this->assertEquals($config['definitions'], $loader->getDefinitions());

@@ -3,7 +3,6 @@
 namespace Fojuth\Stamp;
 
 use Fojuth\Stamp\Config\Loader;
-use Fojuth\Stamp\Locator\TemplateLocator;
 use Fojuth\Stamp\Output\Writer;
 use Fojuth\Stamp\Template\Builder;
 use Fojuth\Stamp\Template\DefinitionFactory;
@@ -25,9 +24,9 @@ class Dispatcher
 
         $declaration = new Declaration($alias, $fqn);
 
-        $templateLocator = $this->getTemplateLocator($config, $declaration);
+//        $templateLocator = $this->getTemplateLocator($config, $declaration);
 
-        $builder = $this->getBuilder($declaration, $templateLocator);
+        $builder = $this->getBuilder($declaration);
 
         $writer = new Writer($config);
         $writer->makeClass($declaration, $builder->make());
@@ -57,26 +56,24 @@ class Dispatcher
      * @param Declaration $declaration
      * @return TemplateLocator
      */
-    protected function getTemplateLocator(Loader $config, Declaration $declaration)
-    {
-        $definitionFactory = new DefinitionFactory($config->getDefinitions());
-
-        $templateLocator = new TemplateLocator($config, $definitionFactory);
-        $templateLocator->setDeclaration($declaration);
-
-        return $templateLocator;
-    }
+//    protected function getTemplateLocator(Loader $config, Declaration $declaration)
+//    {
+//        $definitionFactory = new DefinitionFactory($config->getDefinitions());
+//
+//        $templateLocator = new TemplateLocator($config, $definitionFactory);
+//        $templateLocator->setDeclaration($declaration);
+//
+//        return $templateLocator;
+//    }
 
     /**
      * @param Declaration $declaration
-     * @param TemplateLocator $templateLocator
      * @return Builder
      */
-    protected function getBuilder(Declaration $declaration, TemplateLocator $templateLocator)
+    protected function getBuilder(Declaration $declaration)
     {
         $builder = new Builder();
         $builder->setDeclaration($declaration);
-        $builder->setTemplateContent($templateLocator->fetchTemplateContent());
 
         return $builder;
     }

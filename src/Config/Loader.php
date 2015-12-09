@@ -11,11 +11,6 @@ class Loader
     /**
      * @var string
      */
-    protected $templateDir;
-
-    /**
-     * @var string
-     */
     protected $sources;
 
     /**
@@ -42,7 +37,7 @@ class Loader
 
     protected function validateBasicKeys(array $config)
     {
-        $basicKeys = ['template-dir', 'sources', 'definitions'];
+        $basicKeys = ['sources', 'definitions'];
 
         foreach ($basicKeys as $key) {
             if (false === array_key_exists($key, $config)) {
@@ -53,15 +48,9 @@ class Loader
 
     protected function storeConfig(array $config)
     {
-        $this->templateDir = $config['template-dir'];
         $this->sources = $config['sources'];
         $this->testsDir = $config['test-dir'];
         $this->definitions = $config['definitions'];
-    }
-
-    public function getTemplateDir()
-    {
-        return $this->templateDir;
     }
 
     public function getSources()

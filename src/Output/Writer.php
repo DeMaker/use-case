@@ -4,6 +4,9 @@ namespace Fojuth\Stamp\Output;
 
 use Fojuth\Stamp\Declaration;
 use Fojuth\Stamp\Config\Loader;
+use Memio\Memio\Config\Build;
+use Memio\Model\File;
+use Memio\Model\Object;
 
 /**
  * Creates the target file.
@@ -30,7 +33,7 @@ class Writer
      * Create the file.
      *
      * @param Declaration $declaration
-     * @param string $content
+     * @param Object $content
      */
     public function makeClass(Declaration $declaration, $content)
     {
@@ -44,12 +47,18 @@ class Writer
             return;
         }
 
-        // Create target dir, if it doesn't exist
-        if (false === is_dir($dir)) {
-            mkdir($dir, 0777, true);
-        }
+        $file = File::make($path)
+            ->setStructure($content);
 
-        file_put_contents($path, $content);
+        $prettyPrinter = Build::prettyPrinter();
+        $generatedCode = $prettyPrinter->generateCode($file);
+
+        // Create target dir, if it doesn't exist
+//        if (false === is_dir($dir)) {
+//            mkdir($dir, 0777, true);
+//        }
+//
+        file_put_contents($path, $generatedCode);
     }
 
     /**
