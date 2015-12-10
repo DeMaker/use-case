@@ -7,6 +7,7 @@ use Fojuth\Stamp\Output\Writer;
 use Fojuth\Stamp\Template\Builder;
 use Fojuth\Stamp\Locator\Fqn;
 use Fojuth\Stamp\Template\DefinitionFactory;
+use Symfony\Component\Console\Input\InputInterface;
 
 /**
  * Dispatcher responsible for running Stamp.
@@ -15,13 +16,26 @@ class Dispatcher
 {
 
     /**
+     * @var InputInterface
+     */
+    protected $input;
+
+    /**
      * @var array
      */
     protected $results = [];
 
-    public function run($alias, $fqn)
+    public function __construct(InputInterface $input)
     {
-        $declaration = new Declaration($alias, $fqn);
+        $this->input = $input;
+    }
+
+    public function run()
+    {
+        $declaration = new Declaration(
+            $this->input->getArgument('alias'),
+            $this->input->getArgument('fqn')
+        );
 
         $config = $this->getConfig();
         $fqn = new Fqn($declaration, $config->getSources());
@@ -72,7 +86,7 @@ class Dispatcher
      */
     protected function getBuilder(Declaration $declaration, Fqn $fqn)
     {
-        $builder = new Builder($fqn);
+        $builder = new Builder($fqn, $this->input);
         $builder->setDeclaration($declaration);
 
         return $builder;

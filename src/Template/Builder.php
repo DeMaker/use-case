@@ -8,6 +8,7 @@ use Memio\Model\Object;
 use Memio\Model\Property;
 use Memio\Model\Method;
 use Memio\Model\Argument;
+use Symfony\Component\Console\Input\InputInterface;
 
 /**
  * Replaces placeholders in a template with proper values.
@@ -25,9 +26,15 @@ class Builder
      */
     protected $fqn;
 
-    public function __construct(Fqn $fqn)
+    /**
+     * @var InputInterface
+     */
+    protected $input;
+
+    public function __construct(Fqn $fqn, InputInterface $input)
     {
         $this->fqn = $fqn;
+        $this->input = $input;
     }
 
     /**
@@ -43,10 +50,17 @@ class Builder
 
     public function make()
     {
-        $object = Object::make($this->declaration->getFqn())
-//                    ->addProperty(new Property('createdAt'))
-//                    ->addProperty(new Property('filename'))
-            ->addMethod(
+        $object = Object::make($this->declaration->getFqn());
+
+        if ($this->input->getOption('properties')) {
+            $properties = explode(',', $this->input->getOption('properties'));
+
+            foreach ($properties as $property) {
+                $object->addProperty(new Property(trim($property)));
+            }
+        }
+
+        $object->addMethod(
                 Method::make('__construct')
                     ->addArgument(new Argument('DateTime', 'createdAt'))
                     ->addArgument(new Argument('string', 'filename'))
