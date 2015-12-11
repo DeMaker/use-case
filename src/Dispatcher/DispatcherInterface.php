@@ -13,7 +13,7 @@ interface DispatcherInterface
     public function __construct(BuildStrategyInterface $buildStrategy);
 
     /**
-     * @return array
+     * @return DispatcherResponse
      */
     public function run();
 }
