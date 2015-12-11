@@ -38,6 +38,7 @@ class WriterTest extends \PHPUnit_Framework_TestCase
     {
         $printer = $this->prophesize(PrettyPrinter::class);
         $printer->generateCode(Argument::any())->willReturn($content = 'foo bar baz');
+        $printer->addTemplatePath(Argument::any())->shouldBeCalled();
 
         $object = $this->prophesize(Object::class);
         $object->getFullyQualifiedName()->willReturn('Foo\Bar\Baz');
