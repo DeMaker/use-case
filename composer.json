@@ -23,13 +23,18 @@
     },
     "autoload": {
         "psr-4": {
-            "DeSmart\\DeMaker\\UseCase\\": "src/",
+            "DeSmart\\DeMaker\\UseCase\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "tests\\": "tests/"
         },
         "classmap": [
             "tests/"
         ]
     },
+    "bin": ["bin/demaker-use-case"],
     "repositories": [
         {
             "type": "vcs",
