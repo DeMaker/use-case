@@ -16,8 +16,8 @@ class Psr4Test extends \PHPUnit_Framework_TestCase
             {
                 "autoload": {
                     "psr-4": {
-                        "DeSmart\\DeMaker\\Core\\": "src",
-                        "Foo\\Bar\\": "tmp/foo/bar"
+                        "DeSmart\\\DeMaker\\\Core\\\": "src",
+                        "Foo\\\Bar\\\": "tmp/foo/bar"
                     }
                 }
             }

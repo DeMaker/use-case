@@ -16,7 +16,7 @@ class Psr4
      */
     public function getFromComposerFile($json)
     {
-        $jsonArray = json_decode(str_replace('\\', '\\\\', $json), true);
+        $jsonArray = json_decode($json, true);
 
         if (
             false === array_key_exists('autoload', $jsonArray)
