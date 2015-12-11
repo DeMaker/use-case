@@ -19,6 +19,7 @@ php bin/demaker-use-case use-case Foo\\BarCommand -i firstname:string,lastname:s
 Available commands:
 
 * command - builds command class
+* command-validator - builds command validator class
 * command-response - builds command response class
 * command-handler - builds command handler class
 * use-case - builds command, command handler and command response classes

@@ -51,7 +51,7 @@ class CommandHandlerBuildStrategyTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function it_makes_command_with_defined_fully_qualified_name()
+    public function it_makes_handler_with_defined_fully_qualified_name()
     {
         /** @var \Memio\Model\Object $handler */
         $handler = $this->buildStrategy->make()[0];

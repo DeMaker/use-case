@@ -25,6 +25,7 @@ class UseCaseBuildStrategy implements BuildStrategyInterface
     {
         return array_merge(
             (new CommandBuildStrategy($this->input))->make(),
+            (new CommandValidatorBuildStrategy($this->input))->make(),
             (new CommandHandlerBuildStrategy($this->input))->make(),
             (new CommandResponseBuildStrategy($this->input))->make()
         );

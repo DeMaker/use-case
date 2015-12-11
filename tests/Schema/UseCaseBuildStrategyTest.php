@@ -13,6 +13,7 @@ class UseCaseBuildStrategyTest extends \PHPUnit_Framework_TestCase
 
     private $fqn = 'Bar\Foo\WatCommand';
     private $expectedCommandFqn = 'Bar\Foo\WatCommand';
+    private $expectedCommandValidatorFqn = 'Bar\Foo\WatCommandValidator';
     private $expectedCommandResponseFqn = 'Bar\Foo\WatCommandResponse';
     private $expectedCommandHandlerFqn = 'Bar\Foo\WatCommandHandler';
 
@@ -49,6 +50,10 @@ class UseCaseBuildStrategyTest extends \PHPUnit_Framework_TestCase
         /** @var \Memio\Model\Object $command */
         $command = array_shift($response);
         $this->assertEquals($this->expectedCommandFqn, $command->getFullyQualifiedName());
+
+        /** @var \Memio\Model\Object $validator */
+        $validator = array_shift($response);
+        $this->assertEquals($this->expectedCommandValidatorFqn, $validator->getFullyQualifiedName());
 
         /** @var \Memio\Model\Object $commandHandler */
         $commandHandler = array_shift($response);
