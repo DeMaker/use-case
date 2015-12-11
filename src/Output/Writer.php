@@ -4,9 +4,9 @@ namespace DeSmart\DeMaker\Core\Output;
 
 use DeSmart\DeMaker\Core\Config\Loader;
 use DeSmart\DeMaker\Core\Locator\Fqn;
-use Memio\Memio\Config\Build;
 use Memio\Model\File;
 use Memio\Model\Object as Scheme;
+use Memio\PrettyPrinter\PrettyPrinter;
 
 /**
  * Creates the target file.
@@ -15,41 +15,32 @@ class Writer
 {
 
     /**
-     * @var Loader
+     * @var PrettyPrinter
      */
-    protected $config;
+    protected $printer;
 
-    /**
-     * @var string
-     */
-    protected $compiledFilePath;
-
-    /**
-     * @var Fqn
-     */
-    protected $fqn;
-
-    public function __construct(Loader $config, Fqn $fqn)
+    public function __construct(PrettyPrinter $printer)
     {
-        $this->config = $config;
-        $this->fqn = $fqn;
+        $this->printer = $printer;
     }
 
     /**
      * Create the file.
      *
      * @param Scheme $scheme
+     * @param array $sources
      */
-    public function makeClass(Scheme $scheme)
+    public function makeClass(Scheme $scheme, array $sources)
     {
-        $path = $this->fqn->getFilePath();
+        $fqn = new Fqn($scheme->getFullyQualifiedName(), $sources);
+        $path = $fqn->getFilePath();
 
         // File already exists - do nothing
         if (true === file_exists($path)) {
             return;
         }
 
-        $dir = $this->fqn->getDir();
+        $dir = $fqn->getDir();
 
         // Create target dir, if it doesn't exist
         if (false === is_dir($dir)) {
@@ -69,8 +60,6 @@ class Writer
         $file = File::make($path)
             ->setStructure($scheme);
 
-        $generator = Build::prettyPrinter();
-
-        return $generator->generateCode($file);
+        return $this->printer->generateCode($file);
     }
 }
