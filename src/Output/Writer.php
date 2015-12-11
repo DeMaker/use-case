@@ -28,11 +28,10 @@ class Writer
      * Create the file.
      *
      * @param Scheme $scheme
-     * @param array $sources
+     * @param Fqn $fqn
      */
-    public function makeClass(Scheme $scheme, array $sources)
+    public function makeClass(Scheme $scheme, Fqn $fqn)
     {
-        $fqn = new Fqn($scheme->getFullyQualifiedName(), $sources);
         $path = $fqn->getFilePath();
 
         // File already exists - do nothing

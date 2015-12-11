@@ -3,6 +3,7 @@
 namespace tests\Output;
 
 use DeSmart\DeMaker\Core\Config\Loader;
+use DeSmart\DeMaker\Core\Locator\Fqn;
 use DeSmart\DeMaker\Core\Output\Writer;
 use Memio\Model\Object;
 use Memio\PrettyPrinter\PrettyPrinter;
@@ -41,10 +42,14 @@ class WriterTest extends \PHPUnit_Framework_TestCase
         $object = $this->prophesize(Object::class);
         $object->getFullyQualifiedName()->willReturn('Foo\Bar\Baz');
 
-        $writer = new Writer($printer->reveal());
-        $writer->makeClass($object->reveal(), []);
+        $fqn = $this->prophesize(Fqn::class);
+        $fqn->getFilePath()->willReturn($path = 'Foo/Bar/Baz.php');
+        $fqn->getDir()->willReturn('Foo/Bar');
 
-        $this->assertTrue(file_exists($path = 'Foo/Bar/Baz.php'));
+        $writer = new Writer($printer->reveal());
+        $writer->makeClass($object->reveal(), $fqn->reveal());
+
+        $this->assertTrue(file_exists($path));
         $this->assertEquals($content, file_get_contents($path));
     }
 
@@ -58,10 +63,14 @@ class WriterTest extends \PHPUnit_Framework_TestCase
         $object = $this->prophesize(Object::class);
         $object->getFullyQualifiedName()->willReturn('Somedir\Foo');
 
-        $writer = new Writer($printer->reveal());
-        $writer->makeClass($object->reveal(), []);
+        $fqn = $this->prophesize(Fqn::class);
+        $fqn->getFilePath()->willReturn($path = 'Somedir/Foo.php');
+        $fqn->getDir()->willReturn('Somedir');
 
-        $this->assertTrue(file_exists($path = 'Somedir/Foo.php'));
+        $writer = new Writer($printer->reveal());
+        $writer->makeClass($object->reveal(), $fqn->reveal());
+
+        $this->assertTrue(file_exists($path));
         $this->assertEquals('123', file_get_contents($path));
     }
 
@@ -75,13 +84,13 @@ class WriterTest extends \PHPUnit_Framework_TestCase
         $object = $this->prophesize(Object::class);
         $object->getFullyQualifiedName()->willReturn('Foo\Bar\SomeDir\Baz');
 
-        $writer = new Writer($printer->reveal());
-        $writer->makeClass($object->reveal(), [
-            'Something' => 'nope',
-            'Foo\Bar' => 'wat',
-            'Not\Important' => 'hello',
-        ]);
+        $fqn = $this->prophesize(Fqn::class);
+        $fqn->getFilePath()->willReturn($path = 'wat/SomeDir/Baz.php');
+        $fqn->getDir()->willReturn('wat/SomeDir');
 
-        $this->assertTrue(file_exists('wat/SomeDir/Baz.php'));
+        $writer = new Writer($printer->reveal());
+        $writer->makeClass($object->reveal(), $fqn->reveal());
+
+        $this->assertTrue(file_exists($path));
     }
 }
