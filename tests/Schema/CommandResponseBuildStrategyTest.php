@@ -41,7 +41,7 @@ class CommandResponseBuildStrategyTest extends \PHPUnit_Framework_TestCase
     public function it_makes_command_with_defined_fully_qualified_name()
     {
         /** @var \Memio\Model\Object $command */
-        $command = $this->buildStrategy->make();
+        $command = $this->buildStrategy->make()[0];
 
         $this->assertEquals($this->expectedResponseFqn, $command->getFullyQualifiedName());
     }
