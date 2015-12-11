@@ -105,7 +105,9 @@ class DTOBuildStrategyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('dob', $dob->getName());
         $this->assertEquals('\Carbon\Carbon', $dob->getType());
 
-        $expectedConstructBody = "\$this->firstname = \$firstname;\n\$this->lastname = \$lastname;\n\$this->dob = \$dob;";
+        $spacer = '        ';
+
+        $expectedConstructBody = "{$spacer}\$this->firstname = \$firstname;\n{$spacer}\$this->lastname = \$lastname;\n{$spacer}\$this->dob = \$dob;";
         $this->assertEquals($expectedConstructBody, $construct->getBody());
     }
 

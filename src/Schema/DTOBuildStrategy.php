@@ -51,7 +51,7 @@ class DTOBuildStrategy implements BuildStrategyInterface
             $argument = new Argument($propertyType, $propertyName);
             $construct->addArgument($argument);
 
-            $constructBodyElements[] = sprintf('$this->%1$s = $%1$s;', $propertyName);
+            $constructBodyElements[] = sprintf("        \$this->%s = $%s;", $propertyName, $propertyName);
 
             $newMethod = new Method(sprintf('get%s', ucfirst($propertyName)));
             $newMethod->makePublic();
