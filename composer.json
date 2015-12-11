@@ -5,15 +5,15 @@
     "authors": [
         {
             "name": "Lucjan Wilczewski",
-            "email": "lucjan@desmart.com",
+            "email": "lucjan@desmart.com"
         },
         {
             "name": "Michał Golon",
-            "email": "gollum@desmart.com",
+            "email": "gollum@desmart.com"
         },
         {
             "name": "Kamil Fojuth",
-            "email": "fen@desmart.com",
+            "email": "fen@desmart.com"
         }
     ],
     "require": {
