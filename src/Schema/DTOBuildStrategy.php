@@ -31,12 +31,12 @@ class DTOBuildStrategy implements BuildStrategyInterface
      */
     public function make()
     {
-        $command = Object::make($this->fqn);
+        $dto = Object::make($this->fqn);
 
         $construct = new Method('__construct');
         $construct->makePublic();
 
-        $command->addMethod($construct);
+        $dto->addMethod($construct);
 
         $constructBodyElements = [];
 
@@ -46,7 +46,7 @@ class DTOBuildStrategy implements BuildStrategyInterface
             $newProperty = new Property($propertyName);
             $newProperty->makePrivate();
 
-            $command->addProperty($newProperty);
+            $dto->addProperty($newProperty);
 
             $argument = new Argument($propertyType, $propertyName);
             $construct->addArgument($argument);
@@ -56,12 +56,12 @@ class DTOBuildStrategy implements BuildStrategyInterface
             $newMethod = new Method(sprintf('get%s', ucfirst($propertyName)));
             $newMethod->makePublic();
 
-            $command->addMethod($newMethod);
+            $dto->addMethod($newMethod);
         }
 
         $construct->setBody(implode("\n", $constructBodyElements));
 
-        return $command;
+        return [$dto];
     }
 
     /**
