@@ -2,7 +2,6 @@
 
 namespace DeSmart\DeMaker\Core\Schema;
 
-use DeSmart\DeMaker\Core\Schema\BuildStrategyInterface;
 use Memio\Model\Argument;
 use Memio\Model\Method;
 use Memio\Model\Object;
@@ -11,7 +10,15 @@ use Symfony\Component\Console\Input\InputInterface;
 
 class DTOBuildStrategy implements BuildStrategyInterface
 {
+
+    /**
+     * @var string
+     */
     protected $fqn;
+
+    /**
+     * @var array
+     */
     protected $properties = [];
 
     /**
@@ -20,8 +27,9 @@ class DTOBuildStrategy implements BuildStrategyInterface
     public function __construct(InputInterface $input)
     {
         $this->fqn = $input->getArgument('fqn');
+        $properties = $input->getOption('inputProperties');
 
-        if ($input->hasOption('inputProperties')) {
+        if (false === is_null($properties)) {
             $this->properties = explode(',', $input->getOption('inputProperties'));
         }
     }
