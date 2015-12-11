@@ -1,0 +1,39 @@
+{
+    "name": "demaker/use-case",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lucjan Wilczewski",
+            "email": "lucjan@desmart.com"
+        },
+        {
+            "name": "Micha³ Golon",
+            "email": "gollum@desmart.com"
+        },
+        {
+            "name": "Kamil Fojuth",
+            "email": "fen@desmart.com"
+        }
+    ],
+    "require": {
+        "demaker/core": "dev-develop"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.1.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "DeSmart\\DeMaker\\UseCase\\": "src/",
+            "tests\\": "tests/"
+        },
+        "classmap": [
+            "tests/"
+        ]
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/DeMaker/core"
+        }
+    ]
+}
