@@ -2,20 +2,22 @@
 
 namespace tests\Locator;
 
-use DeSmart\DeMaker\Core\Declaration;
 use DeSmart\DeMaker\Core\Locator\Fqn;
 
 class FqnTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
+     * @var string
+     */
+    protected $fqnString = 'Foo\\Bar\\Baz';
+
+    /**
      * @test
      */
     public function it_returns_file_path()
     {
-        $declaration = $this->get_declaration_prophecy();
-
-        $fqn = new Fqn($declaration->reveal(), []);
+        $fqn = new Fqn($this->fqnString, []);
 
         $this->assertEquals('Foo/Bar/Baz.php', $fqn->getFilePath());
     }
@@ -25,19 +27,9 @@ class FqnTest extends \PHPUnit_Framework_TestCase
      */
     public function it_returns_dir()
     {
-        $declaration = $this->get_declaration_prophecy();
-
-        $fqn = new Fqn($declaration->reveal(), []);
+        $fqn = new Fqn($this->fqnString, []);
 
         $this->assertEquals('Foo/Bar', $fqn->getDir());
-    }
-
-    protected function get_declaration_prophecy()
-    {
-        $declaration = $this->prophesize(Declaration::class);
-        $declaration->getFqn()->willReturn('Foo\\Bar\\Baz');
-
-        return $declaration;
     }
 
     /**
@@ -45,9 +37,7 @@ class FqnTest extends \PHPUnit_Framework_TestCase
      */
     public function it_returns_unchanged_dir_array_if_no_sources_defined()
     {
-        $declaration = $this->get_declaration_prophecy();
-
-        $fqn = new Fqn($declaration->reveal(), []);
+        $fqn = new Fqn($this->fqnString, []);
 
         $this->assertEquals(['Foo', 'Bar'], $fqn->getDirWithNamespace());
     }
@@ -57,9 +47,7 @@ class FqnTest extends \PHPUnit_Framework_TestCase
      */
     public function it_returns_file_path_including_ns()
     {
-        $declaration = $this->get_declaration_prophecy();
-
-        $fqn = new Fqn($declaration->reveal(), ['Foo\\Bar' => 'src']);
+        $fqn = new Fqn($this->fqnString, ['Foo\\Bar' => 'src']);
 
         $this->assertEquals('src/Baz.php', $fqn->getFilePath());
     }
@@ -69,9 +57,7 @@ class FqnTest extends \PHPUnit_Framework_TestCase
      */
     public function it_returns_dir_including_ns()
     {
-        $declaration = $this->get_declaration_prophecy();
-
-        $fqn = new Fqn($declaration->reveal(), ['Foo\\Bar' => 'src']);
+        $fqn = new Fqn($this->fqnString, ['Foo\\Bar' => 'src']);
 
         $this->assertEquals('src', $fqn->getDir());
     }
@@ -81,9 +67,7 @@ class FqnTest extends \PHPUnit_Framework_TestCase
      */
     public function it_returns_dir_array_including_ns()
     {
-        $declaration = $this->get_declaration_prophecy();
-
-        $fqn = new Fqn($declaration->reveal(), ['Foo\\Bar' => 'src']);
+        $fqn = new Fqn($this->fqnString, ['Foo\\Bar' => 'src']);
 
         $this->assertEquals(['src'], $fqn->getDirWithNamespace());
     }

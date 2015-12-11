@@ -2,20 +2,13 @@
 
 namespace DeSmart\DeMaker\Core\Locator;
 
-use DeSmart\DeMaker\Core\Declaration;
-
 class Fqn
 {
 
     /**
-     * @var Declaration
-     */
-    protected $declaration;
-
-    /**
      * @var array
      */
-    protected $source;
+    protected $sources;
 
     /**
      * @var array
@@ -27,11 +20,10 @@ class Fqn
      */
     protected $className;
 
-    public function __construct(Declaration $declaration, array $source)
+    public function __construct($fqn, array $sources)
     {
-        $this->declaration = $declaration;
-        $this->source = $source;
-        $fqnArray = explode('\\', $declaration->getFqn());
+        $fqnArray = explode('\\', $fqn);
+        $this->sources = $sources;
         $this->className = array_pop($fqnArray);
         $this->fqnArray = $fqnArray;
     }
@@ -57,7 +49,7 @@ class Fqn
     {
         $ns = join('\\', $this->fqnArray);
 
-        if (true === is_array($this->source)) {
+        if (true === is_array($this->sources)) {
             $fqnArray = $this->getDirWithNamespace($ns);
         }
 
@@ -74,7 +66,7 @@ class Fqn
         $nsArray = $this->fqnArray;
         $ns = join('\\', $nsArray);
 
-        foreach ($this->source as $sourceNamespace => $dir) {
+        foreach ($this->sources as $sourceNamespace => $dir) {
             if (strstr($ns, $sourceNamespace)) {
                 $nsToReplace = explode('\\', $sourceNamespace);
 
