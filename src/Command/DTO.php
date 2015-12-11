@@ -3,31 +3,30 @@
 namespace DeSmart\DeMaker\Core\Command;
 
 use DeSmart\DeMaker\Core\Dispatcher\Dispatcher;
+use DeSmart\DeMaker\Core\Schema\DTOBuildStrategy;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class Popo extends Command
+class DTO extends Command
 {
     protected function configure()
     {
         $this->setName('dto')
-            ->addArgument('fqn', InputArgument::REQUIRED, 'FQN of the target class')
-            ->addOption('properties', 'p', InputOption::VALUE_REQUIRED, 'Properties to generate (comma separated)')
-            ->addOption('getters', 'g', InputOption::VALUE_NONE, 'Generate getters')
-            ->addOption('setters', 's', InputOption::VALUE_NONE, 'Generate setters');
+            ->addArgument('fqn', InputArgument::REQUIRED, 'FQN of the class to be generated')
+            ->addOption('inputProperties', 'p', InputOption::VALUE_REQUIRED, 'Properties to generate (comma separated)');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $results = (new Dispatcher($input))->run();
+        $buildStrategy = new DTOBuildStrategy($input);
 
-        foreach ($results as $result) {
-            $declaration = $result['declaration'];
+        $dispatcherResponses = (new Dispatcher($buildStrategy))->run();
 
-            $output->writeln("Generated {$declaration->getAlias()} ({$declaration->getFqn()}) at {$result['path']}");
+        foreach ($dispatcherResponses as $response) {
+            $output->writeln("Generated DTO {$response->getFqn()} at {$response->getPath()}");
         }
     }
 }

@@ -2,7 +2,7 @@
 
 require 'vendor/autoload.php';
 
-use DeSmart\DeMaker\Core\Command\Make;
+use DeSmart\DeMaker\Core\Command\DTO;
 use Symfony\Component\Console\Application;
 
 class Boot
@@ -20,7 +20,7 @@ class Boot
 
     public function registerCommands()
     {
-        $this->app->add(new Make);
+        $this->app->add(new DTO);
     }
 
     public function run()
