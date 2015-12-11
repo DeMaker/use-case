@@ -39,7 +39,7 @@ class DTOBuildStrategyTest extends \PHPUnit_Framework_TestCase
     public function it_makes_command_schema()
     {
         /** @var \Memio\Model\Object $command */
-        $command = $this->buildStrategy->make();
+        $command = $this->buildStrategy->make()[0];
 
         $this->assertInstanceOf(\Memio\Model\Object::class, $command);
     }
@@ -48,7 +48,7 @@ class DTOBuildStrategyTest extends \PHPUnit_Framework_TestCase
     public function it_makes_command_with_defined_fully_qualified_name()
     {
         /** @var \Memio\Model\Object $command */
-        $command = $this->buildStrategy->make();
+        $command = $this->buildStrategy->make()[0];
 
         $this->assertEquals($this->fqn, $command->getFullyQualifiedName());
     }
@@ -57,7 +57,7 @@ class DTOBuildStrategyTest extends \PHPUnit_Framework_TestCase
     public function it_makes_command_with_defined_properties()
     {
         /** @var \Memio\Model\Object $command */
-        $command = $this->buildStrategy->make();
+        $command = $this->buildStrategy->make()[0];
         $properties = $command->allProperties();
 
         /** @var \Memio\Model\Property $firstname */
@@ -80,7 +80,7 @@ class DTOBuildStrategyTest extends \PHPUnit_Framework_TestCase
     public function it_makes_command_initialized_with_defined_properties()
     {
         /** @var \Memio\Model\Object $command */
-        $command = $this->buildStrategy->make();
+        $command = $this->buildStrategy->make()[0];
         $methods = $command->allMethods();
 
         /** @var \Memio\Model\Method $construct */
@@ -113,7 +113,7 @@ class DTOBuildStrategyTest extends \PHPUnit_Framework_TestCase
     public function it_makes_command_with_getters_for_defined_properties()
     {
         /** @var \Memio\Model\Object $command */
-        $command = $this->buildStrategy->make();
+        $command = $this->buildStrategy->make()[0];
         $methods = $command->allMethods();
 
         /** @var \Memio\Model\Method $construct */
