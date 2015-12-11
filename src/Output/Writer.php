@@ -22,6 +22,7 @@ class Writer
     public function __construct(PrettyPrinter $printer)
     {
         $this->printer = $printer;
+        $this->printer->addTemplatePath(__DIR__ . '/templates');
     }
 
     /**
