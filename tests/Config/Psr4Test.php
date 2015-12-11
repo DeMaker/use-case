@@ -13,23 +13,55 @@ class Psr4Test extends \PHPUnit_Framework_TestCase
     public function it_returns_autoload_namespaces()
     {
         $json = <<<EOT
-{
-    "autoload": {
-        "psr-4": {
-            "DeSmart\\DeMaker\\Core\\": "src/",
-            "Foo\\Bar\\": "tmp/foo/bar"
-        }
-    }
-}
+            {
+                "autoload": {
+                    "psr-4": {
+                        "DeSmart\\DeMaker\\Core\\": "src",
+                        "Foo\\Bar\\": "tmp/foo/bar"
+                    }
+                }
+            }
 EOT;
 
         $loader = new Psr4();
 
-        $result = $loader->getFromComposerFile($json);
-
         $this->assertEquals([
             'DeSmart\\DeMaker\\Core' => 'src',
             'Foo\\Bar' => 'tmp/foo/bar',
-        ], $result);
+        ], $loader->getFromComposerFile($json));
+    }
+
+    /**
+     * @test
+     */
+    public function it_returns_empty_array_if_no_psr4()
+    {
+        $json = <<<EOT
+            {
+                "autoload": {
+                    "foo": "bar"
+                }
+            }
+EOT;
+
+        $loader = new Psr4();
+
+        $this->assertEquals([], $loader->getFromComposerFile($json));
+    }
+
+    /**
+     * @test
+     */
+    public function it_returns_empty_array_if_no_autoload()
+    {
+        $json = <<<EOT
+            {
+                "foo": "bar"
+            }
+EOT;
+
+        $loader = new Psr4();
+
+        $this->assertEquals([], $loader->getFromComposerFile($json));
     }
 }
