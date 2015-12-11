@@ -126,6 +126,9 @@ class DTOBuildStrategyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('getFirstname', $getFirstname->getName());
         $this->assertEquals('public', $getFirstname->getVisibility());
 
+        $expectedGetFirstnameBody = "        return \$this->firstname;";
+        $this->assertEquals($expectedGetFirstnameBody, $getFirstname->getBody());
+
         /** @var \Memio\Model\Method $getLastname */
         $getLastname = array_shift($methods);
         $this->assertEquals('getLastname', $getLastname->getName());

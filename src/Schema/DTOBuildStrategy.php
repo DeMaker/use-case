@@ -56,6 +56,10 @@ class DTOBuildStrategy implements BuildStrategyInterface
             $newMethod = new Method(sprintf('get%s', ucfirst($propertyName)));
             $newMethod->makePublic();
 
+            $body = str_replace("\t", '    ', sprintf("\t\treturn \$this->%s;", $propertyName));
+
+            $newMethod->setBody($body);
+
             $dto->addMethod($newMethod);
         }
 
