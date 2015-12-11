@@ -2,9 +2,9 @@
 
 namespace tests\Output;
 
-use Fojuth\Stamp\Config\Loader;
-use Fojuth\Stamp\Declaration;
-use Fojuth\Stamp\Output\Writer;
+use DeSmart\DeMaker\Core\Config\Loader;
+use DeSmart\DeMaker\Core\Declaration;
+use DeSmart\DeMaker\Core\Output\Writer;
 
 class WriterTest extends \PHPUnit_Framework_TestCase
 {

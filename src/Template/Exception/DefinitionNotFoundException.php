@@ -1,6 +1,6 @@
 <?php
 
-namespace Fojuth\Stamp\Template\Exception;
+namespace DeSmart\DeMaker\Core\Template\Exception;
 
 class DefinitionNotFoundException extends \LogicException
 {

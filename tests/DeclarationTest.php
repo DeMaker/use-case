@@ -1,6 +1,6 @@
 <?php
 
-use Fojuth\Stamp\Declaration;
+use DeSmart\DeMaker\Core\Declaration;
 
 class DeclarationTest extends PHPUnit_Framework_TestCase
 {

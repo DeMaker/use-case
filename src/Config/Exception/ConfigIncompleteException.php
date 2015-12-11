@@ -1,6 +1,6 @@
 <?php
 
-namespace Fojuth\Stamp\Config\Exception;
+namespace DeSmart\DeMaker\Core\Config\Exception;
 
 class ConfigIncompleteException extends \LogicException
 {

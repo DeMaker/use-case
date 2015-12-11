@@ -1,12 +1,10 @@
 <?php
 
-namespace Fojuth\Stamp;
+namespace DeSmart\DeMaker\Core;
 
-use Fojuth\Stamp\Config\Loader;
-use Fojuth\Stamp\Output\Writer;
-use Fojuth\Stamp\Template\Builder;
-use Fojuth\Stamp\Locator\Fqn;
-use Fojuth\Stamp\Template\DefinitionFactory;
+use DeSmart\DeMaker\Core\Output\Writer;
+use DeSmart\DeMaker\Core\Template\Builder;
+use DeSmart\DeMaker\Core\Locator\Fqn;
 use Symfony\Component\Console\Input\InputInterface;
 
 /**
@@ -37,7 +35,6 @@ class Dispatcher
             $this->input->getArgument('fqn')
         );
 
-        $config = $this->getConfig();
         $fqn = new Fqn($declaration, $config->getSources());
 
         $builder = $this->getBuilder($declaration, $fqn);
@@ -52,33 +49,6 @@ class Dispatcher
 
         return $this->results;
     }
-
-    /**
-     * @return Loader
-     */
-    protected function getConfig()
-    {
-        if (false === file_exists('stamp.json')) {
-            throw new \LogicException('stamp.json not found');
-        }
-
-        return new Loader(file_get_contents('stamp.json'));
-    }
-
-    /**
-     * @param Loader $config
-     * @param Declaration $declaration
-     * @return TemplateLocator
-     */
-//    protected function getTemplateLocator(Loader $config, Declaration $declaration)
-//    {
-//        $definitionFactory = new DefinitionFactory($config->getDefinitions());
-//
-//        $templateLocator = new TemplateLocator($config, $definitionFactory);
-//        $templateLocator->setDeclaration($declaration);
-//
-//        return $templateLocator;
-//    }
 
     /**
      * @param Declaration $declaration

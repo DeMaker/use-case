@@ -2,9 +2,9 @@
 
 namespace tests;
 
-use Fojuth\Stamp\Template\Exception\DefinitionNotFoundException;
-use Fojuth\Stamp\Template\Definition;
-use Fojuth\Stamp\Template\DefinitionFactory;
+use DeSmart\DeMaker\Core\Template\Exception\DefinitionNotFoundException;
+use DeSmart\DeMaker\Core\Template\Definition;
+use DeSmart\DeMaker\Core\Template\DefinitionFactory;
 
 class DefinitionFactoryTest extends \PHPUnit_Framework_TestCase
 {

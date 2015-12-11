@@ -2,7 +2,7 @@
 
 namespace tests;
 
-use Fojuth\Stamp\Template\Definition;
+use DeSmart\DeMaker\Core\Template\Definition;
 
 class DefinitionTest extends \PHPUnit_Framework_TestCase
 {

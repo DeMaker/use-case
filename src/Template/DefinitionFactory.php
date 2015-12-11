@@ -1,8 +1,8 @@
 <?php
 
-namespace Fojuth\Stamp\Template;
+namespace DeSmart\DeMaker\Core\Template;
 
-use Fojuth\Stamp\Template\Exception\DefinitionNotFoundException;
+use DeSmart\DeMaker\Core\Template\Exception\DefinitionNotFoundException;
 
 /**
  * Definition factory for hydrating definitions.
@@ -25,7 +25,7 @@ class DefinitionFactory
      *
      * @param string $alias
      * @return Definition
-     * @throws \Fojuth\Stamp\Template\Exception\DefinitionNotFoundException
+     * @throws \DeSmart\DeMaker\Core\Template\Exception\DefinitionNotFoundException
      */
     public function getDefinition($alias)
     {

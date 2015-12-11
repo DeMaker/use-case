@@ -2,8 +2,8 @@
 
 namespace tests;
 
-use Fojuth\Stamp\Declaration;
-use Fojuth\Stamp\Template\Builder;
+use DeSmart\DeMaker\Core\Declaration;
+use DeSmart\DeMaker\Core\Template\Builder;
 
 class BuilderTest extends \PHPUnit_Framework_TestCase
 {

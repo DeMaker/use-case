@@ -1,9 +1,9 @@
 <?php
 
-namespace Fojuth\Stamp\Output;
+namespace DeSmart\DeMaker\Core\Output;
 
-use Fojuth\Stamp\Config\Loader;
-use Fojuth\Stamp\Locator\Fqn;
+use DeSmart\DeMaker\Core\Config\Loader;
+use DeSmart\DeMaker\Core\Locator\Fqn;
 use Memio\Memio\Config\Build;
 use Memio\Model\File;
 use Memio\Model\Object as Scheme;

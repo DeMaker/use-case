@@ -1,6 +1,6 @@
 <?php
 
-namespace Fojuth\Stamp\Template;
+namespace DeSmart\DeMaker\Core\Template;
 
 class Definition
 {

@@ -2,8 +2,8 @@
 
 namespace tests\Locator;
 
-use Fojuth\Stamp\Declaration;
-use Fojuth\Stamp\Locator\Fqn;
+use DeSmart\DeMaker\Core\Declaration;
+use DeSmart\DeMaker\Core\Locator\Fqn;
 
 class FqnTest extends \PHPUnit_Framework_TestCase
 {

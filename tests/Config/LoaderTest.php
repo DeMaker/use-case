@@ -2,9 +2,9 @@
 
 namespace tests;
 
-use Fojuth\Stamp\Config\Loader;
-use Fojuth\Stamp\Config\Exception\InvalidConfigException;
-use Fojuth\Stamp\Config\Exception\ConfigIncompleteException;
+use DeSmart\DeMaker\Core\Config\Loader;
+use DeSmart\DeMaker\Core\Config\Exception\InvalidConfigException;
+use DeSmart\DeMaker\Core\Config\Exception\ConfigIncompleteException;
 
 class LoaderTest extends \PHPUnit_Framework_TestCase
 {

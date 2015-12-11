@@ -1,8 +1,8 @@
 <?php
 
-namespace Fojuth\Stamp\Locator;
+namespace DeSmart\DeMaker\Core\Locator;
 
-use Fojuth\Stamp\Declaration;
+use DeSmart\DeMaker\Core\Declaration;
 
 class Fqn
 {

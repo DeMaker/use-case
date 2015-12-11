@@ -1,9 +1,9 @@
 <?php
 
-namespace Fojuth\Stamp\Template;
+namespace DeSmart\DeMaker\Core\Template;
 
-use Fojuth\Stamp\Declaration;
-use Fojuth\Stamp\Locator\Fqn;
+use DeSmart\DeMaker\Core\Declaration;
+use DeSmart\DeMaker\Core\Locator\Fqn;
 use Memio\Model\Object;
 use Memio\Model\Property;
 use Memio\Model\Method;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Fojuth\Stamp\Config;
+namespace DeSmart\DeMaker\Core\Config;
 
-use Fojuth\Stamp\Config\Exception\InvalidConfigException;
-use Fojuth\Stamp\Config\Exception\ConfigIncompleteException;
+use DeSmart\DeMaker\Core\Config\Exception\InvalidConfigException;
+use DeSmart\DeMaker\Core\Config\Exception\ConfigIncompleteException;
 
 class Loader
 {
