@@ -1,11 +1,19 @@
 {
-    "name": "fojuth/stamp",
-    "description": "Cascade class generation.",
+    "name": "demaker/core",
+    "description": "Class generation package.",
     "license": "MIT",
     "authors": [
         {
+            "name": "Lucjan Wilczewski",
+            "email": "lucjan@desmart.com",
+        },
+        {
+            "name": "Michał Golon",
+            "email": "gollum@desmart.com",
+        },
+        {
             "name": "Kamil Fojuth",
-            "email": "fojuth@gmail.com"
+            "email": "fen@desmart.com",
         }
     ],
     "require": {
@@ -13,11 +21,11 @@
         "memio/memio": "1.1.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "5.0.*"
+        "phpunit/phpunit": "5.1.*"
     },
     "autoload": {
         "psr-4": {
-            "Fojuth\\Stamp\\": "src/"
+            "DeSmart\\DeMaker\\Core\\": "src/"
         }
     },
     "autoload-dev": {

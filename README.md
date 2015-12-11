@@ -1,2 +1,2 @@
-# stamp
-Cascade class generation.
+# DeMaker/core
+Class generation package.
