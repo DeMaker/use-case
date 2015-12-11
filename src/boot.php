@@ -15,19 +15,19 @@ class Boot
 
     public function __construct()
     {
-        $this->application = new Application;
+        $this->app = new Application;
     }
 
     public function registerCommands()
     {
-        $this->application->add(new Make);
+        $this->app->add(new Make);
     }
 
     public function run()
     {
         $this->registerCommands();
 
-        $this->application->run();
+        $this->app->run();
     }
 }
 

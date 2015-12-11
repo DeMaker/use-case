@@ -2,6 +2,7 @@
 
 namespace DeSmart\DeMaker\Core;
 
+use DeSmart\DeMaker\Core\Config\Psr4;
 use DeSmart\DeMaker\Core\Output\Writer;
 use DeSmart\DeMaker\Core\Template\Builder;
 use DeSmart\DeMaker\Core\Locator\Fqn;
@@ -35,7 +36,7 @@ class Dispatcher
             $this->input->getArgument('fqn')
         );
 
-        $fqn = new Fqn($declaration, $config->getSources());
+        $fqn = new Fqn($declaration, $this->getSources());
 
         $builder = $this->getBuilder($declaration, $fqn);
 
@@ -60,5 +61,12 @@ class Dispatcher
         $builder->setDeclaration($declaration);
 
         return $builder;
+    }
+
+    protected function getSources()
+    {
+        $loader = new Psr4;
+
+        return $loader->getFromComposerFile(file_get_contents('composer.json'));
     }
 }
