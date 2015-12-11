@@ -4,9 +4,9 @@ namespace DeSmart\DeMaker\Core\Dispatcher;
 
 use DeSmart\DeMaker\Core\Config\Psr4;
 use DeSmart\DeMaker\Core\Output\Writer;
-use DeSmart\DeMaker\Core\Template\Builder;
+use DeSmart\DeMaker\Core\Schema\BuildStrategyInterface;
 use DeSmart\DeMaker\Core\Locator\Fqn;
-use Symfony\Component\Console\Input\InputInterface;
+use Memio\Memio\Config\Build;
 
 /**
  * Dispatcher responsible for running Stamp.
@@ -15,58 +15,58 @@ class Dispatcher
 {
 
     /**
-     * @var InputInterface
+     * @var BuildStrategyInterface
      */
-    protected $input;
+    protected $buildStrategy;
 
     /**
      * @var array
      */
     protected $results = [];
 
-    public function __construct(InputInterface $input)
+    /**
+     * @var array
+     */
+    protected $sources = null;
+
+    public function __construct(BuildStrategyInterface $buildStrategy)
     {
-        $this->input = $input;
+        $this->buildStrategy = $buildStrategy;
     }
 
+    /**
+     * @return array
+     */
     public function run()
     {
-        $declaration = new Declaration(
-            $this->input->getArgument('alias'),
-            $this->input->getArgument('fqn')
-        );
+        $writer = new Writer(Build::prettyPrinter());
+        $objects = $this->buildStrategy->make();
 
-        $fqn = new Fqn($declaration, $this->getSources());
+        foreach ($objects as $object) {
+            $fqn = new Fqn($object->getFullyQualifiedName(), $this->getSources());
 
-        $builder = $this->getBuilder($declaration, $fqn);
+            $writer->makeClass($object, $fqn);
 
-        $writer = new Writer($config, $fqn);
-        $writer->makeClass($builder->make());
-
-        $this->results[] = [
-            'declaration' => $declaration,
-            'path' => $fqn->getFilePath(),
-        ];
+            $this->results[] = new DispatcherResponse(
+                $object->getFullyQualifiedName(),
+                $fqn->getFilePath()
+            );
+        }
 
         return $this->results;
     }
 
     /**
-     * @param Declaration $declaration
-     * @return Builder
+     * @return array
      */
-    protected function getBuilder(Declaration $declaration, Fqn $fqn)
-    {
-        $builder = new Builder($fqn, $this->input);
-        $builder->setDeclaration($declaration);
-
-        return $builder;
-    }
-
     protected function getSources()
     {
-        $loader = new Psr4;
+        if (true === is_null($this->sources)) {
+            $loader = new Psr4;
 
-        return $loader->getFromComposerFile(file_get_contents('composer.json'));
+            $this->sources = $loader->getFromComposerFile(file_get_contents('composer.json'));
+        }
+
+        return $this->sources;
     }
 }
