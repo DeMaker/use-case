@@ -41,17 +41,19 @@ class CommandHandlerBuildStrategy implements BuildStrategyInterface
         $command = new Argument($this->commandFqn, 'command');
         $handle->addArgument($command);
 
-        $responseArguments = implode(
-            ', ',
-            array_map(
-                function ($argument) {
-                    list($argumentName, $argumentType) = explode(':', $argument);
+        if (false === empty($this->responseProperties)) {
+            $responseArguments = implode(
+                ', ',
+                array_map(
+                    function ($argument) {
+                        list($argumentName, $argumentType) = explode(':', $argument);
 
-                    return sprintf('$%s', $argumentName);
-                },
-                $this->responseProperties
-            )
-        );
+                        return sprintf('$%s', $argumentName);
+                    },
+                    $this->responseProperties
+                )
+            );
+        }
 
         $body = str_replace("\t", "    ", sprintf("\t\treturn new %s(%s);", $this->responseFqn, $responseArguments));
 

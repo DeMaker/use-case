@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/DeMaker/core.git",
-                "reference": "8da813d7bae3ab0309f30a2edb111b072662b0bf"
+                "reference": "483b73eba3b07a1e9d1991fdfe3d8fdc2f6524e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DeMaker/core/zipball/8da813d7bae3ab0309f30a2edb111b072662b0bf",
-                "reference": "8da813d7bae3ab0309f30a2edb111b072662b0bf",
+                "url": "https://api.github.com/repos/DeMaker/core/zipball/483b73eba3b07a1e9d1991fdfe3d8fdc2f6524e9",
+                "reference": "483b73eba3b07a1e9d1991fdfe3d8fdc2f6524e9",
                 "shasum": ""
             },
             "require": {
@@ -64,7 +64,7 @@
                 "source": "https://github.com/DeMaker/core/tree/develop",
                 "issues": "https://github.com/DeMaker/core/issues"
             },
-            "time": "2015-12-11 15:21:28"
+            "time": "2015-12-11 16:01:15"
         },
         {
             "name": "memio/linter",
