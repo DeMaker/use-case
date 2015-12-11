@@ -2,7 +2,7 @@
 
 namespace DeSmart\DeMaker\Core\Dispatcher;
 
-use DeSmart\DeMaker\Schema\BuildStrategyInterface;
+use DeSmart\DeMaker\Core\Schema\BuildStrategyInterface;
 
 interface DispatcherInterface
 {

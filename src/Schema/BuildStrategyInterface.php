@@ -1,6 +1,6 @@
 <?php
 
-namespace DeSmart\DeMaker\Schema;
+namespace DeSmart\DeMaker\Core\Schema;
 
 use Memio\Model\Object;
 use Symfony\Component\Console\Input\InputInterface;

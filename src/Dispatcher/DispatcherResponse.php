@@ -1,6 +1,6 @@
 <?php
 
-namespace DeSmart\DeMaker\Core;
+namespace DeSmart\DeMaker\Core\Dispatcher;
 
 class DispatcherResponse
 {

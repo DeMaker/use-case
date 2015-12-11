@@ -1,6 +1,6 @@
 <?php
 
-namespace DeSmart\DeMaker\Core;
+namespace DeSmart\DeMaker\Core\Dispatcher;
 
 use DeSmart\DeMaker\Core\Config\Psr4;
 use DeSmart\DeMaker\Core\Output\Writer;
