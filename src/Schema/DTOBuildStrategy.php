@@ -8,6 +8,9 @@ use Memio\Model\Object;
 use Memio\Model\Property;
 use Symfony\Component\Console\Input\InputInterface;
 
+/**
+ * Build strategy responsible for creating DTO classes.
+ */
 class DTOBuildStrategy implements BuildStrategyInterface
 {
 
@@ -46,6 +49,29 @@ class DTOBuildStrategy implements BuildStrategyInterface
 
         $dto->addMethod($construct);
 
+        $constructBodyElements = $this->handleMethodProperties($construct, $dto);
+
+        $construct->setBody(implode("\n", $constructBodyElements));
+
+        return [$dto];
+    }
+
+    /**
+     * @param $property
+     * @return array
+     */
+    protected function getPropertyDefinition($property)
+    {
+        return explode(':', $property);
+    }
+
+    /**
+     * @param Method $construct
+     * @param Object $dto
+     * @return array
+     */
+    protected function handleMethodProperties(Method $construct, Object $dto)
+    {
         $constructBodyElements = [];
 
         foreach($this->properties as $property) {
@@ -71,17 +97,6 @@ class DTOBuildStrategy implements BuildStrategyInterface
             $dto->addMethod($newMethod);
         }
 
-        $construct->setBody(implode("\n", $constructBodyElements));
-
-        return [$dto];
-    }
-
-    /**
-     * @param $property
-     * @return array
-     */
-    private function getPropertyDefinition($property)
-    {
-        return explode(':', $property);
+        return $constructBodyElements;
     }
 }
