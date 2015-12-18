@@ -72,6 +72,10 @@ class CommandHandlerBuildStrategyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('handle', $handle->getName());
         $this->assertEquals('public', $handle->getVisibility());
 
+        /** @var \Memio\Model\PhpDoc\ReturnTag $phpDocReturnTag */
+        $phpDocReturnTag = $handle->getPhpdoc()->getReturnTag();
+        $this->assertEquals('\\' . $this->expectedResponseFqn, $phpDocReturnTag->getType());
+
         /** @var \Memio\Model\PhpDoc\ParameterTag  $phpDocParamTag */
         $phpDocParamTag = array_shift($handle->getPhpdoc()->getParameterTags());
         $this->assertEquals('\\' . $this->expectedCommandFqn, $phpDocParamTag->getType());
