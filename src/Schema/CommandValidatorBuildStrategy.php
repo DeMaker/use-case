@@ -8,7 +8,14 @@ use Symfony\Component\Console\Input\InputInterface;
 
 class CommandValidatorBuildStrategy implements  BuildStrategyInterface
 {
+    /**
+     * @var string
+     */
     protected $validatorFqn;
+
+    /**
+     * @var string
+     */
     protected $commandFqn;
 
     /**

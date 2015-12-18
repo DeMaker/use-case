@@ -4,14 +4,28 @@ use DeSmart\DeMaker\Core\Schema\BuildStrategyInterface;
 use Memio\Model\Argument;
 use Memio\Model\Method;
 use Memio\Model\Object;
-use Memio\Model\Type;
 use Symfony\Component\Console\Input\InputInterface;
 
 class CommandHandlerBuildStrategy implements BuildStrategyInterface
 {
+    /**
+     * @var string
+     */
     protected $commandFqn;
+
+    /**
+     * @var string
+     */
     protected $handlerFqn;
+
+    /**
+     * @var string
+     */
     protected $responseFqn;
+
+    /**
+     * @var array
+     */
     protected $responseProperties;
 
     /**

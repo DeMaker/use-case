@@ -3,7 +3,6 @@
 namespace DeSmart\DeMaker\UseCase\Command;
 
 use DeSmart\DeMaker\Core\Dispatcher\Dispatcher;
-use DeSmart\DeMaker\UseCase\Schema\CommandBuildStrategy;
 use DeSmart\DeMaker\UseCase\Schema\CommandResponseBuildStrategy;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
