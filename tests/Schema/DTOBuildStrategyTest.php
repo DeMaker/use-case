@@ -64,16 +64,19 @@ class DTOBuildStrategyTest extends \PHPUnit_Framework_TestCase
         $firstname = array_shift($properties);
         $this->assertEquals('firstname', $firstname->getName());
         $this->assertEquals('private', $firstname->getVisibility());
+        $this->assertEquals('string', $firstname->getPhpdoc()->getVariableTag()->getType());
 
         /** @var \Memio\Model\Property $lastname */
         $lastname = array_shift($properties);
         $this->assertEquals('lastname', $lastname->getName());
         $this->assertEquals('private', $lastname->getVisibility());
+        $this->assertEquals('string', $lastname->getPhpdoc()->getVariableTag()->getType());
 
         /** @var \Memio\Model\Property $dob */
         $dob = array_shift($properties);
         $this->assertEquals('dob', $dob->getName());
         $this->assertEquals('private', $dob->getVisibility());
+        $this->assertEquals('\Carbon\Carbon', $dob->getPhpdoc()->getVariableTag()->getType());
     }
 
     /** @test */
@@ -87,6 +90,23 @@ class DTOBuildStrategyTest extends \PHPUnit_Framework_TestCase
         $construct = array_shift($methods);
         $this->assertEquals('__construct', $construct->getName());
         $this->assertEquals('public', $construct->getVisibility());
+
+        $phpDocParamTags = $construct->getPhpdoc()->getParameterTags();
+
+        /** @var \Memio\Model\PhpDoc\ParameterTag $firstnameParamTag */
+        $firstnameParamTag = array_shift($phpDocParamTags);
+        $this->assertEquals('string', $firstnameParamTag->getType());
+        $this->assertEquals('firstname', $firstnameParamTag->getName());
+
+        /** @var \Memio\Model\PhpDoc\ParameterTag $lastnameParamTag */
+        $lastnameParamTag = array_shift($phpDocParamTags);
+        $this->assertEquals('string', $lastnameParamTag->getType());
+        $this->assertEquals('lastname', $lastnameParamTag->getName());
+
+        /** @var \Memio\Model\PhpDoc\ParameterTag $dobParamTag */
+        $dobParamTag = array_shift($phpDocParamTags);
+        $this->assertEquals('\Carbon\Carbon', $dobParamTag->getType());
+        $this->assertEquals('dob', $dobParamTag->getName());
 
         $constructorArguments = $construct->allArguments();
 
@@ -126,6 +146,10 @@ class DTOBuildStrategyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('getFirstname', $getFirstname->getName());
         $this->assertEquals('public', $getFirstname->getVisibility());
 
+        /** @var \Memio\Model\PhpDoc\ReturnTag $getFirstnameReturnTag */
+        $getFirstnameReturnTag = $getFirstname->getPhpdoc()->getReturnTag();
+        $this->assertEquals('string', $getFirstnameReturnTag->getType());
+
         $expectedGetFirstnameBody = "        return \$this->firstname;";
         $this->assertEquals($expectedGetFirstnameBody, $getFirstname->getBody());
 
@@ -134,9 +158,17 @@ class DTOBuildStrategyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('getLastname', $getLastname->getName());
         $this->assertEquals('public', $getLastname->getVisibility());
 
+        /** @var \Memio\Model\PhpDoc\ReturnTag $getLastnameReturnTag */
+        $getLastnameReturnTag = $getLastname->getPhpdoc()->getReturnTag();
+        $this->assertEquals('string', $getLastnameReturnTag->getType());
+
         /** @var \Memio\Model\Method $getDob */
         $getDob = array_shift($methods);
         $this->assertEquals('getDob', $getDob->getName());
         $this->assertEquals('public', $getDob->getVisibility());
+
+        /** @var \Memio\Model\PhpDoc\ReturnTag $getLastnameReturnTag */
+        $getDobReturnTag = $getDob->getPhpdoc()->getReturnTag();
+        $this->assertEquals('\Carbon\Carbon', $getDobReturnTag->getType());
     }
 }

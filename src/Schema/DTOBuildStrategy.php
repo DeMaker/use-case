@@ -5,6 +5,11 @@ namespace DeSmart\DeMaker\Core\Schema;
 use Memio\Model\Argument;
 use Memio\Model\Method;
 use Memio\Model\Object;
+use Memio\Model\Phpdoc\MethodPhpdoc;
+use Memio\Model\Phpdoc\ParameterTag;
+use Memio\Model\Phpdoc\PropertyPhpdoc;
+use Memio\Model\Phpdoc\ReturnTag;
+use Memio\Model\Phpdoc\VariableTag;
 use Memio\Model\Property;
 use Symfony\Component\Console\Input\InputInterface;
 
@@ -46,6 +51,7 @@ class DTOBuildStrategy implements BuildStrategyInterface
 
         $construct = new Method('__construct');
         $construct->makePublic();
+        $construct->setPhpdoc(MethodPhpdoc::make());
 
         $dto->addMethod($construct);
 
@@ -79,19 +85,25 @@ class DTOBuildStrategy implements BuildStrategyInterface
 
             $newProperty = new Property($propertyName);
             $newProperty->makePrivate();
+            $newProperty->setPhpdoc(PropertyPhpdoc::make()
+                ->setVariableTag(new VariableTag($propertyType))
+            );
 
             $dto->addProperty($newProperty);
 
             $argument = new Argument($propertyType, $propertyName);
             $construct->addArgument($argument);
+            $construct->getPhpdoc()->addParameterTag(new ParameterTag($propertyType, $propertyName));
 
             $constructBodyElements[] = sprintf("        \$this->%s = $%s;", $propertyName, $propertyName);
 
             $newMethod = new Method(sprintf('get%s', ucfirst($propertyName)));
             $newMethod->makePublic();
+            $newMethod->setPhpdoc(MethodPhpdoc::make()
+                ->setReturnTag(new ReturnTag($propertyType))
+            );
 
             $body = str_replace("\t", '    ', sprintf("\t\treturn \$this->%s;", $propertyName));
-
             $newMethod->setBody($body);
 
             $dto->addMethod($newMethod);
