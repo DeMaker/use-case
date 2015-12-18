@@ -4,6 +4,9 @@ use DeSmart\DeMaker\Core\Schema\BuildStrategyInterface;
 use Memio\Model\Argument;
 use Memio\Model\Method;
 use Memio\Model\Object;
+use Memio\Model\Phpdoc\MethodPhpdoc;
+use Memio\Model\Phpdoc\ParameterTag;
+use Memio\Model\Phpdoc\ReturnTag;
 use Symfony\Component\Console\Input\InputInterface;
 
 class CommandValidatorBuildStrategy implements  BuildStrategyInterface
@@ -36,8 +39,12 @@ class CommandValidatorBuildStrategy implements  BuildStrategyInterface
 
         $validate = new Method('validate');
         $validate->makePublic();
+        $validate->setPhpdoc(MethodPhpdoc::make()
+            ->addParameterTag(new ParameterTag('\\' . $this->commandFqn, 'command'))
+            ->setReturnTag(new ReturnTag('void'))
+        );
 
-        $command = new Argument($this->commandFqn, 'command');
+        $command = new Argument('\\' . $this->commandFqn, 'command');
         $validate->addArgument($command);
 
         $validator->addMethod($validate);
