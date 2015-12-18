@@ -72,15 +72,24 @@ class CommandHandlerBuildStrategyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('handle', $handle->getName());
         $this->assertEquals('public', $handle->getVisibility());
 
+        /** @var \Memio\Model\PhpDoc\ReturnTag $phpDocReturnTag */
+        $phpDocReturnTag = $handle->getPhpdoc()->getReturnTag();
+        $this->assertEquals('\\' . $this->expectedResponseFqn, $phpDocReturnTag->getType());
+
+        /** @var \Memio\Model\PhpDoc\ParameterTag  $phpDocParamTag */
+        $phpDocParamTag = array_shift($handle->getPhpdoc()->getParameterTags());
+        $this->assertEquals('\\' . $this->expectedCommandFqn, $phpDocParamTag->getType());
+        $this->assertEquals('command', $phpDocParamTag->getName());
+
         $arguments = $handle->allArguments();
         $this->assertCount(1, $arguments);
 
         /** @var \Memio\Model\Argument $command */
         $command = array_shift($arguments);
-        $this->assertEquals($this->expectedCommandFqn, $command->getType());
+        $this->assertEquals('\\' . $this->expectedCommandFqn, $command->getType());
         $this->assertEquals('command', $command->getName());
 
-        $handlerBody = "        return new {$this->expectedResponseFqn}(\$firstname, \$lastname, \$dob);";
+        $handlerBody = "        return new \\{$this->expectedResponseFqn}(\$firstname, \$lastname, \$dob);";
 
         $this->assertEquals($handlerBody, $handle->getBody());
     }

@@ -66,12 +66,21 @@ class CommandValidatorBuildStrategyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('validate', $validate->getName());
         $this->assertEquals('public', $validate->getVisibility());
 
+        /** @var \Memio\Model\PhpDoc\ReturnTag $phpDocReturnTag */
+        $phpDocReturnTag = $validate->getPhpdoc()->getReturnTag();
+        $this->assertEquals('void', $phpDocReturnTag->getType());
+
+        /** @var \Memio\Model\PhpDoc\ParameterTag  $phpDocParamTag */
+        $phpDocParamTag = array_shift($validate->getPhpdoc()->getParameterTags());
+        $this->assertEquals('\\' . $this->expectedCommandFqn, $phpDocParamTag->getType());
+        $this->assertEquals('command', $phpDocParamTag->getName());
+
         $arguments = $validate->allArguments();
         $this->assertCount(1, $arguments);
 
         /** @var \Memio\Model\Argument $command */
         $command = array_shift($arguments);
-        $this->assertEquals($this->expectedCommandFqn, $command->getType());
+        $this->assertEquals('\\' . $this->expectedCommandFqn, $command->getType());
         $this->assertEquals('command', $command->getName());
     }
 
