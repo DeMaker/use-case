@@ -3,9 +3,7 @@
 namespace DeSmart\DeMaker\Core\Command;
 
 use DeSmart\DeMaker\Core\Dispatcher\Dispatcher;
-use DeSmart\DeMaker\Core\Schema\DTOBuildStrategy;
 use DeSmart\DeMaker\Core\Schema\DTOWithUnitTestBuildStrategy;
-use org\bovigo\vfs\vfsStreamWrapper;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
@@ -22,8 +20,8 @@ class DTO extends Command
             ->setDefinition(
                 new InputDefinition([
                     new InputArgument('fqn', InputArgument::REQUIRED, 'FQN of the class to be generated'),
-                    new InputArgument('testfqn', InputArgument::REQUIRED, 'FQN of the test for the class to be generated'),
-                    new InputOption('inputProperties', 'p', InputOption::VALUE_REQUIRED, 'Properties to generate (comma separated)')
+                    new InputArgument('testfqn', InputArgument::OPTIONAL, 'FQN of the test for the class to be generated'),
+                    new InputOption('inputProperties', 'i', InputOption::VALUE_REQUIRED, 'Properties to generate (comma separated)')
                 ])
             );
     }

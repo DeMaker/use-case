@@ -24,8 +24,14 @@ class DTOWithUnitTestBuildStrategy implements BuildStrategyInterface
      */
     public function make()
     {
+        $strategy = (new DTOBuildStrategy($this->input))->make();
+
+        if (true === empty($this->input->getArgument('testfqn'))) {
+        return $strategy;
+        }
+
         return array_merge(
-            (new DTOBuildStrategy($this->input))->make(),
+            $strategy,
             (new DTOUnitTestBuildStrategy($this->input))->make()
         );
     }
