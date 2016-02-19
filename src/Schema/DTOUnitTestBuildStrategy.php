@@ -36,7 +36,9 @@ class DTOUnitTestBuildStrategy implements BuildStrategyInterface
      */
     public function make()
     {
+        $phpunitTestCase = Object::make(\PHPUnit_Framework_TestCase::class);
         $dtoUnitTest = Object::make($this->fqn);
+        $dtoUnitTest->extend($phpunitTestCase);
 
         return [$dtoUnitTest];
     }
